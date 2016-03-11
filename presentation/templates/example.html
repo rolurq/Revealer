@@ -1,0 +1,35 @@
+<!-- Rename this file to '<your_presentation_name>.html' -->
+{% extends "presentation.html" %}
+
+{% block stylesheet %}
+    {{ super() }}
+    <!-- Load your custom styles -->
+    <link rel="stylesheet" href="/static/css/slide.css">
+{% endblock %}
+
+<!-- Reveal theme -->
+{% block theme %}moon{% endblock %}
+<!-- Code highlight theme -->
+{% block highlight %}solarized_dark{% endblock %}
+<!-- Transition type -->
+{% block transition %}slide{% endblock %}
+
+{% block configuration %}
+    {{ super() }}
+    <!-- Set Reveal options -->
+{% endblock %}
+
+{% block dependencies %}
+    {{ super() }}
+    <!-- Add Reveal dependencies -->
+{% endblock %}
+
+{% block slides %}
+    <section>
+        <h1>Put your slides here</h1>
+        <br>
+        <p>
+          Read "presentation.html" for more information
+        </p>
+    </section>
+{% endblock %}
