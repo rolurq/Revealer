@@ -1,4 +1,4 @@
-# Reveal-Flask
+# Revealer
 Flask application to serve multiple [revealjs](https://github.com/hakimel/reveal.js/releases) slideshows.
 
 ## Usage

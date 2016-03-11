@@ -1,17 +1,18 @@
 from gevent import monkey
 monkey.patch_all()
 
-import os
 
 from presentation import app, socketio
 from flask.ext.script import Manager, Shell
 
 manager = Manager(app)
 
+
 def make_shell_context():
     return dict(app=app)
 
 manager.add_command("shell", Shell(make_context=make_shell_context))
+
 
 @manager.command
 def runserver():
@@ -19,4 +20,3 @@ def runserver():
 
 if __name__ == '__main__':
     manager.run()
-
