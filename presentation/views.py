@@ -8,6 +8,8 @@ multiplexer = {}
 multiplex_count = 0
 
 @app.route('/<presentation_name>/<user_type>', methods=['GET'])
+@app.route('/<presentation_name>/', defaults={'user_type': 'viewer'},
+           methods=['GET'])
 def landing(presentation_name, user_type):
     global multiplex_count, multiplexer
     try:
