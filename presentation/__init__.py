@@ -8,4 +8,3 @@ socketio = SocketIO(app)
 
 from . import views
 from . import websockets
-
