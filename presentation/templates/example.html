@@ -7,10 +7,12 @@
 {% block author %}{% endblock %}
 
 {% block stylesheet %}
-  {{ super() }}
   <!-- Load your custom styles -->
-  <link rel="stylesheet" href="/static/css/slide.css">
 {% endblock %}
+
+{% block scripts %}
+  <!-- Load your custom scripts -->
+{% endblock%}
 
 <!-- Reveal theme -->
 {% block theme %}moon{% endblock %}
