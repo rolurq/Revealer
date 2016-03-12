@@ -1,40 +1,23 @@
-<!-- Rename this file to '<your_presentation_name>.html' -->
+<!-- Rename this file to '<your_presentation_name>.html'
+'{{ super() }}' entries load default values -->
 {% extends "presentation.html" %}
+
 
 <!-- Information about the presentation -->
 {% block title %}{% endblock %}
 {% block description %}{% endblock %}
 {% block author %}{% endblock %}
 
+<!-- Reveal theme -->
+{% block theme %}{{ super() }}{% endblock %}
+<!-- Code highlight theme -->
+{% block highlight %}{{ super() }}{% endblock %}
+<!-- Transition type -->
+{% block transition %}{{ super() }}{% endblock %}
 
 
 {% block reveal %}
   <!-- Common elementes for each slide -->
-{% endblock %}
-
-{% block stylesheet %}
-  <!-- Load your custom styles -->
-{% endblock %}
-
-{% block scripts %}
-  <!-- Load your custom scripts -->
-{% endblock%}
-
-<!-- Reveal theme -->
-{% block theme %}moon{% endblock %}
-<!-- Code highlight theme -->
-{% block highlight %}solarized_dark{% endblock %}
-<!-- Transition type -->
-{% block transition %}slide{% endblock %}
-
-{% block configuration %}
-  {{ super() }}
-  <!-- Set Reveal options -->
-{% endblock %}
-
-{% block dependencies %}
-  {{ super() }}
-  <!-- Add Reveal dependencies -->
 {% endblock %}
 
 {% block slides %}
@@ -46,3 +29,24 @@
     </p>
   </section>
 {% endblock %}
+
+
+{% block stylesheet %}
+  <!-- Load your custom styles -->
+{% endblock %}
+
+{% block scripts %}
+  <!-- Load your custom scripts -->
+{% endblock%}
+
+
+{% block configuration %}
+  {{ super() }}
+  <!-- Set Reveal options -->
+{% endblock %}
+
+{% block dependencies %}
+  {{ super() }}
+  <!-- Add Reveal dependencies -->
+{% endblock %}
+
