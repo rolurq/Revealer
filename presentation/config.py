@@ -1,4 +1,2 @@
-import os
-
-DEBUG = os.environ.get('DEBUG', None)
-SECRET_KEY = os.environ.get('SECRET_KEY', None)
+DEBUG = False
+SECRET_KEY = "ns9qsu1h9821h"
