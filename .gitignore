@@ -75,3 +75,5 @@ target/
 .env
 
 
+# ignore configuration
+config.py
