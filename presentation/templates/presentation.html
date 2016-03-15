@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
     <link rel="stylesheet" href="/static/css/reveal.css">
+    <link rel="stylesheet" href="/static/css/revealer.css">
     {% block stylesheet %}{% endblock %}
     <link rel="stylesheet" href="/static/css/theme/{% block theme %}black{% endblock %}.css" id="theme">
 
@@ -35,6 +36,7 @@
   </head>
 
   <body>
+    <div id="cover"></div>
     <div class="reveal">
       {% block reveal %}{% endblock %}
       <!-- Any section element inside of this container is displayed as a slide -->
@@ -386,6 +388,9 @@ Reveal.addEventListener( 'customevent', function() {
     {% block scripts %}{% endblock%}
 
     <script>
+      $(window).load(function () {
+        $('#cover').fadeOut(1000);
+      });
       // Full list of configuration options available at:
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
