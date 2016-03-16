@@ -1,7 +1,7 @@
-from flask import render_template, abort
+from flask import render_template, abort, request, flash, redirect, url_for
 from jinja2 import TemplateNotFound
 
-from . import app
+from . import app, slideshows
 
 multiplexer = {}
 multiplex_count = 0
@@ -10,7 +10,7 @@ multiplex_count = 0
 @app.route('/<presentation_name>/<user_type>', methods=['GET'])
 @app.route('/<presentation_name>/', defaults={'user_type': 'client'},
            methods=['GET'])
-def landing(presentation_name, user_type):
+def slide(presentation_name, user_type):
     global multiplex_count, multiplexer
     try:
         if presentation_name in multiplexer:
@@ -24,6 +24,16 @@ def landing(presentation_name, user_type):
                                mult_id=multiplex_id)
     except TemplateNotFound:
         abort(404)
+
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    if request.method == 'POST' and 'slideshow' in request.files:
+        filename = slideshows.save(request.files['slideshow'])
+        flash("Slideshow saved.")
+        return redirect(url_for('slide', presentation_name=filename,
+                                user_type='viewer'))
+    return render_template('upload.html')
 
 
 @app.route('/')
