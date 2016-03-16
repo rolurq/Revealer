@@ -24,3 +24,8 @@ def landing(presentation_name, user_type):
                                mult_id=multiplex_id)
     except TemplateNotFound:
         abort(404)
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
