@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block body %}
+  <div class="panel panel-default">
+    <div class="panel-heading">Slideshow file</div>
+    <div class="panel-body">
+      <form method="POST" enctype="multipart/form-data" action="{{ url_for('upload') }}">
+        <div class="input-group">
+          <label for="slideInput">Choose slideshow file for uploading</label>
+          <input type="file" name="slideshow" id="slideInput">
+          <p class="help-block">You should select an html file</p>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

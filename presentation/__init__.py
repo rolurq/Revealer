@@ -6,5 +6,10 @@ app.config.from_pyfile('config.py')
 
 socketio = SocketIO(app)
 
+from flask.ext.uploads import UploadSet, configure_uploads
+
+slideshows = UploadSet('slideshows', ('html'))
+configure_uploads(app, (slideshows))
+
 from . import views
 from . import websockets
