@@ -77,3 +77,6 @@ target/
 
 # ignore configuration
 config.py
+# database
+data.sqlite
+

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block body %}
+  <div class="panel panel-default">
+    <div class="panel-heading">Login</div>
+    <div class="panel-body">
+      <!-- <form method="POST" action="{{ url_for('auth.login') }}"> -->
+        {{ wtf.quick_form(form) }}
+      <!-- </form> -->
+    </div>
+  </div>
+{% endblock %}
