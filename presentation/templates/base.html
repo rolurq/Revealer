@@ -30,6 +30,14 @@
         <li><a href="{{ url_for('upload') }}" title="Upload new slideshow">Upload</a>
         </li>
       </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        {% if current_user.is_authenticated %}
+        <li><a href="{{ url_for('auth.login') }}" title="Sign out from the site">Sign out <span class="badge">{{ current_user.username }}</span></a></li>
+        {% else %}
+        <li><a href="{{ url_for('auth.login') }}" title="Sign in to the site">Sign in</a></li>
+        {% endif %}
+      </ul>
     </div>
   </nav>
 
