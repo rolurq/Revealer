@@ -18,7 +18,7 @@ $ export SECRET_KEY='s0m353cr3tK3y'
 ```
 
 ## Serving your presentation
-Examine the file in `presentation/tenplates/example.html`. You'll find something like this:
+Examine the file in `presentation/templates/example.html`. You'll find something like this:
 
 ```html+jinja
 {% block slides %}
