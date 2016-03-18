@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block body %}
+{% block page_content %}
   <div class="panel panel-default">
     <div class="panel-heading">Login</div>
     <div class="panel-body">
       <!-- <form method="POST" action="{{ url_for('auth.login') }}"> -->
-        {{ wtf.quick_form(form) }}
+        {{ wtf.quick_form(form, form_type='horizontal') }}
       <!-- </form> -->
     </div>
   </div>
