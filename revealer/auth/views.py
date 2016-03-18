@@ -13,9 +13,9 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
 
         if user is not None and user.verify_password(form.password.data):
-            login_user(user, form.remember_me.data)
+            login_user(user, remember=form.remember_me.data)
             return redirect(request.args.get('next') or url_for('index'))
-        flash('Invalid username or password', category='warning')
+        flash('Invalid username or password', category='danger')
 
     return render_template('auth/login.html', form=form)
 
@@ -24,7 +24,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash("You have been logged out", category='info')
+    flash("You have been logged out", category='warning')
     return redirect(url_for('index'))
 
 

@@ -35,7 +35,7 @@ def present(id):
     if record is not None:
         return render_template('slideshows/%s' % id, user_type='master',
                                mult_id=id)
-    flash("You can't control this slideshow.", category='error')
+    flash("You can't control this slideshow.", category='danger')
 
 
 @slideshow.route('/slide/<id>/client/')
@@ -44,7 +44,7 @@ def listen(id):
     if record is not None:
         return render_template('slideshows/%s' % id, user_type='client',
                                mult_id=id)
-    flash("Invalid slideshow.", category='error')
+    flash("Invalid slideshow.", category='danger')
 
 
 @slideshow.route('/slide/<id>/viewer/')
@@ -52,5 +52,5 @@ def view(id):
     record = Slideshow.query.get(int(id))
     if record is not None:
         return render_template('slideshows/%s' % id, user_type='viewer')
-    flash("Invalid slideshow.", category='error')
+    flash("Invalid slideshow.", category='danger')
     return abort(404)
