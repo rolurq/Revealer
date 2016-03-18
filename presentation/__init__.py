@@ -5,8 +5,6 @@ from flask.ext.login import LoginManager
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.bootstrap import Bootstrap
 
-from auth import auth
-
 app = Flask(__name__, static_url_path='/static')
 app.config.from_pyfile('config.py')
 
@@ -23,6 +21,7 @@ db.init_app(app)
 
 bootstrap = Bootstrap(app)
 
+from auth import auth
 app.register_blueprint(auth)
 
 from . import views
