@@ -8,6 +8,9 @@
       <!-- <form method="POST" action="{{ url_for('auth.login') }}"> -->
         {{ wtf.quick_form(form, form_type='horizontal') }}
       <!-- </form> -->
+      <p class="text-center">
+        <a href="{{ url_for('auth.register') }}">Need an account? Register Here</a>  
+      </p>
     </div>
   </div>
 {% endblock %}
