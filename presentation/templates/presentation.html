@@ -416,10 +416,12 @@ Reveal.addEventListener( 'customevent', function() {
         center: true,
         {% endblock %}
 
+        {% if user_type in ['client', 'master'] %}
         multiplex: {
           id: {{ mult_id }},
           url: 'http://' + document.domain + ':' + location.port
         },
+        {% endif %}
 
         // Optional reveal.js plugins
         dependencies: [
