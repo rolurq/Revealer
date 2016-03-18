@@ -7,7 +7,7 @@ from ..models import User
 
 class LoginForm(Form):
     username = StringField('Username', validators=(Required(), Length(1, 80)))
-    password = PasswordField('Password', validators=(Required()))
+    password = PasswordField('Password', validators=(Required(),))
     remember_me = BooleanField('Keep me logged in')
     submit = SubmitField('Log in')
 
@@ -21,7 +21,7 @@ class RegistrationForm(Form):
                              EqualTo('password_confirm',
                                      message="Passwords must match")))
     password_confirm = PasswordField('Confirm password',
-                                     validators=(Required()))
+                                     validators=(Required(),))
     submit = SubmitField("Register")
 
     # WTF adds this as validator to username
