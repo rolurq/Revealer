@@ -16,16 +16,17 @@
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-left">
-        <li><a href="{{ url_for('slideshow.index') }}" title="View slideshows">Slideshows</a>
+        <li><a href="{{ url_for('slideshow.index') }}" title="View slideshows"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> Slideshows</a>
         </li>
-        <li><a href="{{ url_for('slideshow.upload') }}" title="Upload new slideshow">Upload</a>
+        <li>
+          <a href="{{ url_for('slideshow.upload') }}" title="Upload new slideshow"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if current_user.is_authenticated %}
         <li><a href="{{ url_for('auth.login') }}" title="Sign out from the site">Sign out <span class="badge">{{ current_user.username }}</span></a></li>
         {% else %}
-        <li><a href="{{ url_for('auth.login') }}" title="Sign in to the site">Sign in</a></li>
+        <li><a href="{{ url_for('auth.login') }}" title="Sign in to the site"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Sign in</a></li>
         {% endif %}
       </ul>
     </div>
