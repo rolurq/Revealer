@@ -15,6 +15,8 @@ configure_uploads(app, (slideshows))
 
 login_manager = LoginManager()
 login_manager.init_app(app)
+login_manager.session_protection = 'strong'
+login_manager.login_view = 'auth.login'
 
 db = SQLAlchemy()
 db.init_app(app)
