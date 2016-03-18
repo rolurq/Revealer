@@ -2,7 +2,7 @@ from gevent import monkey
 monkey.patch_all()
 
 
-from presentation import app, socketio, db
+from revealer import app, socketio, db
 from flask.ext.script import Manager, Shell
 from flask.ext.migrate import Migrate, MigrateCommand
 

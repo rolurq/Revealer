@@ -18,7 +18,7 @@ downloads/
 eggs/
 .eggs/
 lib/
-!presentation/static/lib/
+!revealer/static/lib/
 lib64/
 parts/
 sdist/
