@@ -13,6 +13,7 @@ def index():
 
 
 @slideshow.route('/upload/', methods=['GET', 'POST'])
+@login_required
 def upload():
     form = SlideshowForm()
     if form.validate_on_submit():
