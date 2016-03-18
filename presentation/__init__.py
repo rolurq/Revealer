@@ -22,7 +22,10 @@ db.init_app(app)
 bootstrap = Bootstrap(app)
 
 from auth import auth
+from slideshow import slideshow
+
 app.register_blueprint(auth)
+app.register_blueprint(slideshow)
 
 from . import views
 from . import websockets
