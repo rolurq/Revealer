@@ -28,7 +28,7 @@ def upload():
     return render_template('slideshow/upload.html', form=form)
 
 
-@slideshow.route('/slide/<id>/master/')
+@slideshow.route('/slide/<int:id>/master/')
 @login_required
 def present(id):
     record = Slideshow.query.filter_by(user=current_user).first()
@@ -38,18 +38,18 @@ def present(id):
     flash("You can't control this slideshow.", category='danger')
 
 
-@slideshow.route('/slide/<id>/client/')
+@slideshow.route('/slide/<int:id>/client/')
 def listen(id):
-    record = Slideshow.query.get(int(id))
+    record = Slideshow.query.get(id)
     if record is not None:
         return render_template('slideshows/%s' % id, user_type='client',
                                mult_id=id)
     flash("Invalid slideshow.", category='danger')
 
 
-@slideshow.route('/slide/<id>/viewer/')
+@slideshow.route('/slide/<int:id>/viewer/')
 def view(id):
-    record = Slideshow.query.get(int(id))
+    record = Slideshow.query.get(id)
     if record is not None:
         return render_template('slideshows/%s' % id, user_type='viewer')
     flash("Invalid slideshow.", category='danger')
