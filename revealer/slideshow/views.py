@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, abort
 from flask.ext.login import current_user, login_required
 from . import slideshow
 from .forms import SlideshowForm
@@ -39,7 +39,7 @@ def present(id):
 
 
 @slideshow.route('/slide/<id>/client/')
-def view(id):
+def listen(id):
     record = Slideshow.query.get(int(id))
     if record is not None:
         return render_template('slideshows/%s' % id, user_type='client',
@@ -48,8 +48,9 @@ def view(id):
 
 
 @slideshow.route('/slide/<id>/viewer/')
-def read(id):
+def view(id):
     record = Slideshow.query.get(int(id))
     if record is not None:
         return render_template('slideshows/%s' % id, user_type='viewer')
     flash("Invalid slideshow.", category='error')
+    return abort(404)
