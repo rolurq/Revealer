@@ -14,7 +14,7 @@
     <tbody>
       {% for slideshow in slideshows -%}
       <tr>
-        <td><h4>{{ slideshow.title }}</h4></td>
+        <td><h4>{{ slideshow.title|e }}</h4></td>
         <td>
           {% if current_user == slideshow.user -%}
           <a type="button" class="btn btn-success btn-sm" href="{{ url_for('slideshow.present', id=slideshow.id) }}">
