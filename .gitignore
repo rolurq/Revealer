@@ -75,9 +75,8 @@ target/
 .env
 
 
-# ignore configuration
-config.py
 # database
 data.sqlite
 # uploaded slideshows
 revealer/templates/slideshows
+
