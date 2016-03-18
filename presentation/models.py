@@ -36,7 +36,7 @@ class User(UserMixin, db.Model):
 
 class Slideshow(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(80))
+    title = db.Column(db.String(80), unique=True)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User',
