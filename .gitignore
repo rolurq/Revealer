@@ -79,4 +79,5 @@ target/
 config.py
 # database
 data.sqlite
-
+# uploaded slideshows
+revealer/templates/slideshows
