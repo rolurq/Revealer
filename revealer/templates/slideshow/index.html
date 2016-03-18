@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block page_content %}
+{% if slideshows %}
 <div class="table-responsive">
   <table class="table">
     <thead>
@@ -33,4 +34,9 @@
     </tbody>
   </table>
 </div>
+{% else %}
+<div class="text-center page-header">
+  <h3><small>No slideshows found</small></h3>
+</div>
+{% endif %}
 {% endblock %}
