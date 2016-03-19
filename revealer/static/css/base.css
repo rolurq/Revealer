@@ -1,3 +1,15 @@
 body {
     padding-top: 70px;
 }
+
+.slideshow-panel .panel-title > a {
+    vertical-align: -webkit-baseline-middle;
+}
+
+.slideshow-buttons {
+    text-align: right;
+}
+
+.slideshow-row {
+    padding-right: 1.5em;
+}
