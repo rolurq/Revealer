@@ -1,5 +1,6 @@
 from flask import render_template, redirect, url_for, flash, abort
 from flask.ext.login import current_user, login_required
+from os import remove as rm
 from . import slideshow
 from .forms import SlideshowForm
 from .. import slideshows, db
@@ -36,6 +37,7 @@ def present(id):
         return render_template('slideshows/%s' % id, user_type='master',
                                mult_id=id)
     flash("You can't control this slideshow.", category='danger')
+    return abort(401)
 
 
 @slideshow.route('/slide/<int:id>/client/')
@@ -56,11 +58,15 @@ def view(id):
     return abort(404)
 
 
-# subscribe populate_form to template
-@slideshow.context_processor
-def inject_form():
-    def populate_form(slideshow):
-        form = EditSlideshowForm()
-        form.title.data = slideshow.title
-        return form
-    return dict(populate_form=populate_form)
+@slideshow.route('/slideshow/remove/<int:id>')
+@login_required
+def remove(id):
+    record = Slideshow.query.get(id)
+    if record and current_user == record.user:
+        db.session.delete(record)
+        db.session.commit()
+
+        flash("Removed slideshow", category="warning")
+        rm(slideshows.path(str(id)))
+        return redirect(url_for('slideshow.index'))
+    return abort(404) if not record else abort(401)
