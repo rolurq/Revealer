@@ -24,7 +24,7 @@ def upload():
         slideshows.save(form.slides.data, name=str(record.id))
 
         flash("Slideshow saved.", category='success')
-        return redirect(url_for('slideshow.read', id=record.id))
+        return redirect(url_for('slideshow.view', id=record.id))
     return render_template('slideshow/upload.html', form=form)
 
 
