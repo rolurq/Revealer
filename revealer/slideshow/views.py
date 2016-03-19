@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, flash, abort
 from flask.ext.login import current_user, login_required
 from . import slideshow
-from .forms import SlideshowForm
+from .forms import SlideshowForm, EditSlideshowForm
 from .. import slideshows, db
 from ..models import Slideshow
 
@@ -54,3 +54,13 @@ def view(id):
         return render_template('slideshows/%s' % id, user_type='viewer')
     flash("Invalid slideshow.", category='danger')
     return abort(404)
+
+
+# subscribe populate_form to template
+@slideshow.context_processor
+def inject_form():
+    def populate_form(slideshow):
+        form = EditSlideshowForm()
+        form.title.data = slideshow.title
+        return form
+    return dict(populate_form=populate_form)

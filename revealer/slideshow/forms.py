@@ -19,3 +19,8 @@ class SlideshowForm(Form):
         if Slideshow.query.filter_by(title=field.data,
                                      user=current_user).first():
             raise ValidationError('Slideshow title already exists')
+
+
+class EditSlideshowForm(SlideshowForm):
+    submit = SubmitField('Save Changes')
+    cancel = SubmitField('Discard')
