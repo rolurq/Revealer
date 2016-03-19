@@ -4,7 +4,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">Login</div>
   <div class="panel-body">
-    {{ wtf.quick_form(form, form_type='horizontal') }}
+    {{ wtf.quick_form(form, form_type='horizontal', button_map=dict(submit="success")) }}
   </div>
 </div>
 {% endblock %}

@@ -6,7 +6,7 @@
     <div class="panel-heading">Login</div>
     <div class="panel-body">
       <!-- <form method="POST" action="{{ url_for('auth.login') }}"> -->
-        {{ wtf.quick_form(form, form_type='horizontal') }}
+        {{ wtf.quick_form(form, form_type='horizontal', button_map=dict(submit="success")) }}
       <!-- </form> -->
       <p class="text-center">
         <a href="{{ url_for('auth.register') }}">Need an account? Register Here</a>  

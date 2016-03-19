@@ -5,7 +5,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">Slideshow file</div>
     <div class="panel-body">
-      {{ wtf.quick_form(form) }}  
+      {{ wtf.quick_form(form, button_map=dict(submit="success")) }}  
     </div>
   </div>
 {% endblock %}
