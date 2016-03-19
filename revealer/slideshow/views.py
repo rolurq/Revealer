@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, flash, abort
 from flask.ext.login import current_user, login_required
 from . import slideshow
-from .forms import SlideshowForm, EditSlideshowForm
+from .forms import SlideshowForm
 from .. import slideshows, db
 from ..models import Slideshow
 
