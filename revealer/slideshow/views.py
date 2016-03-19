@@ -18,7 +18,8 @@ def index():
 def upload():
     form = SlideshowForm()
     if form.validate_on_submit():
-        record = Slideshow(title=form.title.data, user=current_user)
+        record = Slideshow(title=form.title.data, user=current_user,
+                           description=form.description.data)
         db.session.add(record)
         db.session.commit()
 

@@ -37,14 +37,16 @@ class User(UserMixin, db.Model):
 class Slideshow(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), unique=True)
+    description = db.Column(db.Text)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User',
                            backref=db.backref('slideshows', lazy='dynamic'))
 
-    def __init__(self, title, user):
+    def __init__(self, title, user, description):
         self.title = title
         self.user = user
+        self.description = description
 
     def __repr__(self):
         return '<Slideshow %r>' % self.title

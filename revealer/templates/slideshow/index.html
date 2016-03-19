@@ -34,9 +34,12 @@
     </div>
     <div id="collapse_{{ slideshow.id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_{{ slideshow.id }}">
       <div class="panel-body">
-        <b>Owner:</b> <span class="badge">{{ slideshow.user.username }}</span>
-        <br>
-        Description will be here!
+        <dl class="dl-horizontal text-overflow">
+          <dt>Owner:</dt>
+          <dd><span class="badge">{{ slideshow.user.username }}</span></dd>
+          <dt>Description:</dt>
+          <dd>{{ (slideshow.description if slideshow.description else "")|e }}</dd>
+        </dl>
       </div>
     </div>
   </div>
