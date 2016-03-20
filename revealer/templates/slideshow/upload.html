@@ -2,6 +2,11 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block page_content %}
+  <div class="panel panel-info">
+   <div class="panel-body">
+    Donwload the slideshow template <a href="{{ url_for('static', filename='example.html', _external=True) }}" title="">here</a>.
+   </div>
+  </div>
   <div class="panel panel-default">
     <div class="panel-heading">New Slideshow</div>
     <div class="panel-body">
