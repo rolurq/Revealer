@@ -6,11 +6,16 @@
     Welcome to Revealer!
     <br>
     <small>
-      {% if current_user.is_authenticated %} Hi {{ current_user.username }} {% else %} New user?
-      <a class="btn btn-primary" href="{{ url_for('auth.register') }}" title="Create account">Register</a>
-      <br>Or if you wish, you can checkout the slideshows <a href="{{ url_for('slideshow.index') }}" title="Slideshows">here</a>
+      {% if current_user.is_authenticated %}
+      Hi {{ current_user.username }}
+      <br>
+      Upload a new <a href="{{ url_for('slideshow.upload') }}" title="Upload">slideshow</a>.
+      {% else %}
+      New user? <a class="btn btn-primary" href="{{ url_for('auth.register') }}" title="Create account">Register</a>
+      {% endif %}
+      <br>
+      Or if you wish, you can checkout all the <a href="{{ url_for('slideshow.index') }}" title="Slideshows">presentations</a>.
     </small>
-    {% endif %}
   </h1>
 </div>
 {% endblock %}
