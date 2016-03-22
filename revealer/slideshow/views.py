@@ -64,10 +64,8 @@ def view(id):
 def remove(id):
     record = Slideshow.query.get(id)
     if record and current_user == record.user:
-        db.session.delete(record)
-        db.session.commit()
+        record.delete()
 
         flash("Removed slideshow", category="warning")
-        rm(slideshows.path(str(id)))
         return redirect(url_for('slideshow.index'))
     return abort(404) if not record else abort(401)
