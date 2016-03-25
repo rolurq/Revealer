@@ -59,3 +59,7 @@ class Slideshow(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    def present(self):
+        self.last_presented = datetime.utcnow()
+        db.session.add(self)
+

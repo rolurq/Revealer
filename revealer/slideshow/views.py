@@ -35,6 +35,7 @@ def upload():
 def present(id):
     record = Slideshow.query.filter_by(user=current_user).first()
     if record is not None:
+        record.present()  # update last_presented value
         return render_template('slideshows/%s' % id, user_type='master',
                                mult_id=id)
     flash("You can't control this slideshow.", category='danger')
