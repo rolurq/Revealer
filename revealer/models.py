@@ -2,8 +2,7 @@ from flask.ext.login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from os import remove as rm
-from . import db
-from . import login_manager
+from . import db, login_manager, slideshows
 
 
 @login_manager.user_loader
@@ -65,3 +64,21 @@ class Slideshow(db.Model):
         self.last_presented = datetime.utcnow()
         db.session.add(self)
 
+
+# A slideshow being presented
+class Presentation(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    slideshow_hash = db.Column(db.String(12), unique=True)
+
+    slideshow_id = db.Column(db.Integer, db.ForeignKey('slideshow.id'))
+    slideshow = db.relationship('Slideshow',
+                                backref=db.backref('presentations',
+                                                   lazy='dynamic'))
+
+    def __init__(self, slideshow, slideshow_hash):
+        self.slideshow = slideshow
+        self.slideshow_hash = slideshow_hash
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
