@@ -13,3 +13,7 @@ body {
 .slideshow-row {
     padding-right: 1.5em;
 }
+
+.auto-bottom {
+    margin-bottom: auto;
+}
