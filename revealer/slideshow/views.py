@@ -35,6 +35,7 @@ def upload():
 def present(id):
     record = Slideshow.query.filter_by(user=current_user).first()
     if record is not None:
+        record.present()  # update last_presented value
         return render_template('slideshows/%s' % id, user_type='master',
                                mult_id=id)
     flash("You can't control this slideshow.", category='danger')
@@ -64,10 +65,8 @@ def view(id):
 def remove(id):
     record = Slideshow.query.get(id)
     if record and current_user == record.user:
-        db.session.delete(record)
-        db.session.commit()
+        record.delete()
 
         flash("Removed slideshow", category="warning")
-        rm(slideshows.path(str(id)))
         return redirect(url_for('slideshow.index'))
     return abort(404) if not record else abort(401)

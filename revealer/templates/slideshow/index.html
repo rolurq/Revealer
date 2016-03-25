@@ -39,6 +39,14 @@
           <dd><span class="badge">{{ slideshow.user.username }}</span></dd>
           <dt>Description:</dt>
           <dd>{{ (slideshow.description if slideshow.description else "")|e }}</dd>
+          {% if slideshow.created %}
+          <dt>Added:</dt>
+          <dd>{{ moment(slideshow.created).format('LLLL') }}</dd>
+          {% endif %}
+          {% if slideshow.last_presented %}
+          <dt>Last presentation:</dt>
+          <dd>{{ moment(slideshow.last_presented).fromNow(refresh=True) }}</dd>
+          {% endif %}
         </dl>
       </div>
     </div>
@@ -51,4 +59,9 @@
   <h4><small>Upload new <a href="{{ url_for('slideshow.upload') }}" title="upload slideshow">one</a></small></h4>
 </div>
 {% endif %}
+{% endblock %}
+
+{% block scripts %}
+{{ super()|safe }}
+{{ moment.include_moment(local_js=url_for('static', filename='lib/js/moment-with-locales.min.js')) }}
 {% endblock %}
