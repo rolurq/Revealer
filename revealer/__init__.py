@@ -4,6 +4,7 @@ from flask.ext.uploads import UploadSet, configure_uploads
 from flask.ext.login import LoginManager
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.bootstrap import Bootstrap
+from flask.ext.moment import Moment
 
 app = Flask(__name__, static_url_path='/static')
 app.config.from_pyfile('config.py')
@@ -23,6 +24,8 @@ db = SQLAlchemy()
 db.init_app(app)
 
 bootstrap = Bootstrap(app)
+
+moment = Moment(app)
 
 from auth import auth
 from slideshow import slideshow
