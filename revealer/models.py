@@ -13,10 +13,12 @@ def load_user(user_id):
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True)
+    name = db.Column(db.String(64))
+    username = db.Column(db.String(32), unique=True)
     password_hash = db.Column(db.String(128))
 
-    def __init__(self, username, password):
+    def __init__(self, name, username, password):
+        self.name = name
         self.username = username
         self.password_hash = generate_password_hash(password)
 
