@@ -1,4 +1,5 @@
-from flask import render_template, redirect, url_for, flash, abort
+from flask import render_template, redirect, url_for, flash, abort, request,\
+    make_response
 from flask.ext.login import current_user, login_required
 from werkzeug.security import gen_salt
 from . import slideshow
@@ -45,6 +46,18 @@ def present(id):
                                mult_id=pres.slideshow_hash)
     flash("You can't control this slideshow.", category='danger')
     return abort(401)
+
+
+@slideshow.route('/presentation/stop', methods=('POST',))
+@login_required
+def stop():
+    id = request.form.get('id', 0, type=int)
+    record = Presentation.query.get(id)
+    if record is not None and record.slideshow.user == current_user:
+        record.delete()
+        return make_response('OK', 200)
+    return make_response('Unauthorized', 401) if record else\
+        make_response('Not Found', 404)
 
 
 @slideshow.route('/slide/<string:hash>/client/')
