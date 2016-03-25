@@ -47,13 +47,15 @@ def present(id):
     return abort(401)
 
 
-@slideshow.route('/slide/<int:id>/client/')
-def listen(id):
-    record = Slideshow.query.get(id)
+@slideshow.route('/slide/<string:hash>/client/')
+def listen(hash):
+    record = Presentation.query.filter_by(slideshow_hash=hash).first()
     if record is not None:
-        return render_template('slideshows/%s' % id, user_type='client',
-                               mult_id=id)
+        return render_template('slideshows/%s' % record.slideshow.id,
+                               user_type='client',
+                               mult_id=record.slideshow_hash)
     flash("Invalid slideshow.", category='danger')
+    return abort(404)
 
 
 @slideshow.route('/slide/<int:id>/viewer/')
