@@ -17,3 +17,13 @@ body {
 .auto-bottom {
     margin-bottom: auto;
 }
+
+.presentation-item {
+    border: none;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 1px;
+}
+
+.presentation-item:last-child {
+    border-bottom: none;
+}

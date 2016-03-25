@@ -18,4 +18,22 @@
     </small>
   </h1>
 </div>
+{% if presentations %}
+<h3>Currently presenting</h3>
+<ul class="list-group">
+  {% for presentation in presentations %}
+  <li class="list-group-item presentation-item">
+    <!-- <div class="media-body"> -->
+      <h4 class="list-group-item-heading">{{ presentation.slideshow.title }} <a href="{{ url_for('slideshow.listen', hash=presentation.slideshow_hash) }}" title="Listen presentation"><span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span></a></h4>
+      <p class="list-group-item-text">
+        {{ presentation.slideshow.description }}
+      </p>
+      <small>
+        by {{ presentation.slideshow.user.name }}
+      </small>
+    <!-- </div> -->
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
 {% endblock %}
