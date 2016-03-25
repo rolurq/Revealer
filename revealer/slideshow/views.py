@@ -1,10 +1,10 @@
 from flask import render_template, redirect, url_for, flash, abort
 from flask.ext.login import current_user, login_required
-from os import remove as rm
+from werkzeug.security import gen_salt
 from . import slideshow
 from .forms import SlideshowForm
 from .. import slideshows, db
-from ..models import Slideshow
+from ..models import Slideshow, Presentation
 
 
 @slideshow.route('/slideshows')
@@ -36,8 +36,13 @@ def present(id):
     record = Slideshow.query.filter_by(user=current_user).first()
     if record is not None:
         record.present()  # update last_presented value
+
+        # create the presentation instance and the corresponding key
+        pres = Presentation(slideshow_hash=gen_salt(12), slideshow=record)
+        db.session.add(pres)
+        db.session.commit()
         return render_template('slideshows/%s' % id, user_type='master',
-                               mult_id=id)
+                               mult_id=pres.slideshow_hash)
     flash("You can't control this slideshow.", category='danger')
     return abort(401)
 
