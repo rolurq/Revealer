@@ -409,7 +409,7 @@ console.log( '"customevent" has fired' );
 
     {% if user_type in ['client', 'master'] %}
     multiplex: {
-      id: {{ mult_id }},
+      id: "{{ mult_id }}",
       url: 'http://' + document.domain + ':' + location.port
     },
     {% endif %}

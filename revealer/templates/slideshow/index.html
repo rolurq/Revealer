@@ -23,22 +23,33 @@
             <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Present
           </a>
           {%- endif %}
-          <a type="button" class="btn btn-primary btn-sm" href="{{ url_for('slideshow.listen', id=slideshow.id) }}">
-            <span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span> View
-          </a>
           <a type="button" class="btn btn-info btn-sm" href="{{ url_for('slideshow.view', id=slideshow.id) }}">
-            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Read
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
           </a>
         </div>
       </div>
     </div>
     <div id="collapse_{{ slideshow.id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_{{ slideshow.id }}">
       <div class="panel-body">
-        <dl class="dl-horizontal text-overflow">
+        <dl class="dl-horizontal text-overflow auto-bottom">
           <dt>Owner:</dt>
           <dd><span class="badge">{{ slideshow.user.username }}</span></dd>
           <dt>Description:</dt>
           <dd>{{ (slideshow.description if slideshow.description else "")|e }}</dd>
+          {% set presentations = slideshow.presentations.all() %}
+          {% if current_user == slideshow.user and presentations -%}
+          <dt id="presentation-head">Presentations:</dt>
+          <dd id="presentation-desc">
+            {% for presentation in presentations %}
+            <div class="row" role="presentations">
+              <div class="col-md-1">{{ presentation.slideshow_hash }}</div>
+              <div class="col-md-1 col-md-offset-1">
+                <button type="button" role="stop" data-id="{{ presentation.id }}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span> Stop</button>
+              </div>
+            </div>
+            {% endfor %}
+          </dd>
+          {%- endif %}
           {% if slideshow.created %}
           <dt>Added:</dt>
           <dd>{{ moment(slideshow.created).format('LLLL') }}</dd>
@@ -64,4 +75,19 @@
 {% block scripts %}
 {{ super()|safe }}
 {{ moment.include_moment(local_js=url_for('static', filename='lib/js/moment-with-locales.min.js')) }}
+
+<script type="text/javascript" async defer>
+  // add event to all buttons with role="button" between its attr
+  $(':button[role="stop"]').click(function(event) {
+
+    $.post("{{ url_for('slideshow.stop') }}", { id: $( event.target ).data().id },
+      function () {
+        $(event.target).parents("div.row").remove()
+
+        // clean presentations div after its empty
+        if (!$("#presentation-desc").children().length)
+          $("#presentation-head").remove()
+      });
+  });
+</script>
 {% endblock %}
