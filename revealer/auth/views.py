@@ -46,7 +46,7 @@ def register():
 @auth.route('/edit-profile', methods=('GET', 'POST'))
 @login_required
 def edit_profile():
-    form = EditProfileForm()
+    form = EditProfileForm(current_user)
     if form.validate_on_submit():
         current_user.name = form.name.data or current_user.name
         current_user.username = form.username.data or current_user.username
