@@ -34,3 +34,25 @@ class RegistrationForm(Form):
     def validate_username(self, field):
         if User.query.filter_by(username=field.data).first():
             raise ValidationError('Username already in use')
+
+
+class EditProfileForm(Form):
+    name = StringField('Name', validators=(Length(0, 64), Optional(),
+                       Regexp('^[A-ZÁÉÍÓÚÑa-záéíóúñ\s]*$', 0, 'Names must have'
+                              ' only letters and spaces')),
+                       description="Your full name")
+    username = StringField('Login', validators=(Length(0, 32), Optional(),
+                           Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0, 'Usernames '
+                                  'must have only letters, numbers, dots or '
+                                  'underscores')))
+    submit = SubmitField("Save Changes")
+
+    def __init__(self, user, *args, **kwargs):
+        super(EditProfileForm, self).__init__(*args, **kwargs)
+
+        self.user = user
+
+    def validate_username(self, field):
+        if field.data != self.user.username and\
+           User.query.filter_by(username=field.data).first():
+            raise ValidationError('Username already in use')
