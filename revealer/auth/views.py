@@ -1,9 +1,10 @@
 from flask import render_template, redirect, request, url_for, flash
-from flask.ext.login import login_user, login_required, logout_user
+from flask.ext.login import login_user, login_required, logout_user,\
+    current_user
 from . import auth
 from .. import db
 from ..models import User
-from .forms import LoginForm, RegistrationForm
+from .forms import LoginForm, RegistrationForm, EditProfileForm
 
 
 @auth.route('/login/', methods=['GET', 'POST'])
@@ -40,3 +41,19 @@ def register():
         login_user(user)
         return redirect(url_for('index'))
     return render_template('auth/register.html', form=form)
+
+
+@auth.route('/edit-profile', methods=('GET', 'POST'))
+@login_required
+def edit_profile():
+    form = EditProfileForm()
+    if form.validate_on_submit():
+        current_user.name = form.name.data or current_user.name
+        current_user.username = form.username.data or current_user.username
+        db.session.add(current_user)
+
+        flash('Your profile has been updated', category="success")
+        return redirect(url_for('index'))
+    form.name.data = current_user.name
+    form.username.data = current_user.username
+    return render_template('auth/edit_profile.html', form=form)
