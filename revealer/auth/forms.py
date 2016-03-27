@@ -3,7 +3,8 @@
 from flask.ext.wtf import Form
 from wtforms import StringField, PasswordField, BooleanField, SubmitField,\
     ValidationError
-from wtforms.validators import Required, Length, Regexp, EqualTo, Optional
+from wtforms.validators import Required, Length, Regexp, EqualTo, Optional,\
+    Email
 from ..models import User
 
 
@@ -23,6 +24,8 @@ class RegistrationForm(Form):
                            Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0, 'Usernames '
                                   'must have only letters, numbers, dots or '
                                   'underscores')))
+    email = StringField('Email', validators=(Optional(), Length(0, 64),
+                                             Email()))
     password = PasswordField('Password', validators=(Required(),
                              EqualTo('password_confirm',
                                      message="Passwords must match")))
@@ -34,6 +37,10 @@ class RegistrationForm(Form):
     def validate_username(self, field):
         if User.query.filter_by(username=field.data).first():
             raise ValidationError('Username already in use')
+
+    def validate_email(self, field):
+        if User.query.filter_by(email=field.data).first():
+            raise ValidationError('Email already registered')
 
 
 class EditProfileForm(Form):
