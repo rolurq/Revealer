@@ -83,11 +83,12 @@
 
     $.post("{{ url_for('slides.stop') }}", { id: $( event.target ).data().id },
       function () {
+        list = $(event.target).parents("#presentation-list")
         $(event.target).parents("div.row").remove()
 
         // clean presentations div after its empty
-        if (!$("#presentation-desc").children().length)
-          $("#presentation-head").remove()
+        if (!list.children().length)
+          list.html("<i>No presentations</i>")
       });
   });
 </script>
