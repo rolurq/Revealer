@@ -80,6 +80,7 @@ class Presentation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     slideshow_hash = db.Column(db.String(12), unique=True, index=True)
     clients = db.Column(db.Integer)
+    state = db.Column(db.PickleType())
 
     slideshow_id = db.Column(db.Integer, db.ForeignKey('slideshow.id'))
     slideshow = db.relationship('Slideshow',
@@ -92,6 +93,10 @@ class Presentation(db.Model):
 
     def connected(self):
         self.clients += 1
+        db.session.add(self)
+
+    def statechanged(self, state):
+        self.state = state
         db.session.add(self)
 
     def delete(self):
