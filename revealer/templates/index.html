@@ -25,13 +25,18 @@
   <li class="list-group-item presentation-item">
     <h4 class="list-group-item-heading">
       <div class="row">
-        <div class="col-xs-8 col-sm-8 col-md-10">
+        <div class="col-xs-8 col-sm-9 col-md-10 col-lg-10">
           <a href="{{ url_for('slides.index', expand=presentation.slideshow.id) }}">{{ presentation.slideshow.title }}</a>
         </div>
-        <div class="col-xs-3 col-sm-2 col-md-1">
-          <a href="{{ url_for('slides.listen', hash=presentation.slideshow_hash) }}" title="Listen presentation" class="btn btn-default btn-xs">
-            <span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span> Listen
-          </a>
+        <div class="row">
+          <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
+            <a href="{{ url_for('slides.listen', hash=presentation.slideshow_hash) }}" title="Listen presentation" class="btn btn-default btn-xs">
+              <span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span> Listen
+            </a>
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
+            <small><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> {{ presentation.clients }}</small>
+          </div>
         </div>
       </div>
     </h4>
