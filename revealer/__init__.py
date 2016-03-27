@@ -9,7 +9,7 @@ from flask.ext.moment import Moment
 app = Flask(__name__, static_url_path='/static')
 app.config.from_pyfile('config.py')
 
-socketio = SocketIO(app)
+socketio = SocketIO(app, async_mode='gevent')
 
 slideshows = UploadSet('slideshows', ('html'))
 configure_uploads(app, (slideshows))

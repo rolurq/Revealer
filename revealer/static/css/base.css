@@ -27,3 +27,12 @@ body {
 .presentation-item:last-child {
     border-bottom: none;
 }
+
+div.container > nav {
+    text-align: center;
+}
+
+.presentation-info {
+    text-align: right;
+    padding-right: 1.5em;
+}

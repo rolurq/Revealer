@@ -9,13 +9,7 @@
 
 	function post() {
 
-		var messageData = {
-			state: Reveal.getState(),
-			secret: multiplex.secret,
-			socketId: multiplex.id
-		};
-
-		socket.emit( 'multiplex statechanged', messageData );
+		socket.emit( 'state', Reveal.getState() );
 
 	};
 

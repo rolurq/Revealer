@@ -1,12 +1,16 @@
-from flask import render_template
+from flask import render_template, request
 from . import app
 from .models import Presentation
 
 
-@app.route('/')
+@app.route('/', methods=('GET', 'POST'))
 def index():
-    return render_template('index.html',
-                           presentations=Presentation.query.all())
+    page = request.args.get('page', 1, type=int)
+    pagination = Presentation.query.order_by(Presentation.created.desc())\
+        .paginate(page, per_page=5, error_out=False)
+
+    return render_template('index.html', pagination=pagination,
+                           presentations=pagination.items)
 
 
 @app.errorhandler(404)
