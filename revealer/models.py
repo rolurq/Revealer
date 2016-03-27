@@ -78,7 +78,7 @@ def delete_slideshow(mapper, connection, target):
 # A slideshow being presented
 class Presentation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    slideshow_hash = db.Column(db.String(12), unique=True)
+    slideshow_hash = db.Column(db.String(12), unique=True, index=True)
 
     slideshow_id = db.Column(db.Integer, db.ForeignKey('slideshow.id'))
     slideshow = db.relationship('Slideshow',
