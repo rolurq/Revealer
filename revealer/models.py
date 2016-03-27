@@ -1,6 +1,7 @@
 from flask.ext.login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+from sqlalchemy.event import listens_for
 from os import remove as rm
 from . import db, login_manager, slideshows
 
@@ -58,13 +59,20 @@ class Slideshow(db.Model):
         return self.title
 
     def delete(self):
-        rm(slideshows.path(str(self.id)))
         db.session.delete(self)
         db.session.commit()
 
     def present(self):
         self.last_presented = datetime.utcnow()
         db.session.add(self)
+
+
+@listens_for(Slideshow, 'after_delete')
+def delete_slideshow(mapper, connection, target):
+    try:
+        rm(slideshows.path(str(target.id)))
+    except OSError:
+        pass
 
 
 # A slideshow being presented
