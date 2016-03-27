@@ -43,6 +43,12 @@ def register():
     return render_template('auth/register.html', form=form)
 
 
+@auth.route('/user/<string:username>')
+def user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    return render_template('auth/user.html', user=user)
+
+
 @auth.route('/edit-profile', methods=('GET', 'POST'))
 @login_required
 def edit_profile():

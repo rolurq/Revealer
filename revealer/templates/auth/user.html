@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="page-header">
+  <h1>{{ user.username }}</h1>
+  <dl class="text-overflow auto-bottom">
+    <dt>Name:</dt>
+    <dd>{{ user.name }}</dd>
+    {% if user.email %}
+    <dt>Email:</dt>
+    <dd><a href="mailto:{{ user.email }}" title="email {{ user.username }}">{{ user.email }}</a></dd>
+    {% endif %}
+    <dt>Slideshows:</dt>
+    <dd>
+      <ul style="list-style-type: circle;">
+      {% for slideshow in user.slideshows %}
+        <li><a href="{{ url_for('slides.index', expand=slideshow.id) }}">{{ slideshow.title }}</a></li>
+      {% else %}
+        <li><i>No slideshows</i></li>
+      {% endfor %}
+      </ul>
+    </dd>
+  </dl>
+</div>
+{% endblock %}
