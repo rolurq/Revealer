@@ -44,11 +44,16 @@
     </p>
     <br>
     <small>
-      by {{ presentation.slideshow.user.name }}.
+      by <a href="{{ url_for('auth.user', username=user.username) }}" >{{ user.name }}</a> started {{ moment(presentation.created).fromNow(refresh=True) }}
     </small>
   </li>
   {% endfor %}
 </ul>
 {{ paginate.render_pagination(pagination, 'index', size='sm', next=('&rarr;')|safe, prev=('&larr;')|safe) }}
 {% endif %}
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{{ moment.include_moment(local_js=url_for('static', filename='lib/js/moment-with-locales.min.js')) }}
 {% endblock %}
