@@ -18,12 +18,12 @@
         </div>
         <div class="row slideshow-buttons">
           {% if current_user == slideshow.user -%}
-          <a type="button" class="btn btn-danger btn-sm" href="{{ url_for('slideshow.remove', id=slideshow.id) }}"><span class="glyphicon glyphicon-trash" aria-hidden="true"> Delete</a>
-          <a type="button" class="btn btn-success btn-sm" href="{{ url_for('slideshow.present', id=slideshow.id) }}">
+          <a type="button" class="btn btn-danger btn-sm" href="{{ url_for('slides.remove', id=slideshow.id) }}"><span class="glyphicon glyphicon-trash" aria-hidden="true"> Delete</a>
+          <a type="button" class="btn btn-success btn-sm" href="{{ url_for('slides.present', id=slideshow.id) }}">
             <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Present
           </a>
           {%- endif %}
-          <a type="button" class="btn btn-info btn-sm" href="{{ url_for('slideshow.view', id=slideshow.id) }}">
+          <a type="button" class="btn btn-info btn-sm" href="{{ url_for('slides.view', id=slideshow.id) }}">
             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
           </a>
         </div>
@@ -67,7 +67,7 @@
 {% else %}
 <div class="text-center page-header">
   <h3><small>No slideshows found.</small></h3>
-  <h4><small>Upload new <a href="{{ url_for('slideshow.upload') }}" title="upload slideshow">one</a></small></h4>
+  <h4><small>Upload new <a href="{{ url_for('slides.upload') }}" title="upload slideshow">one</a></small></h4>
 </div>
 {% endif %}
 {% endblock %}
@@ -80,7 +80,7 @@
   // add event to all buttons with role="button" between its attr
   $(':button[role="stop"]').click(function(event) {
 
-    $.post("{{ url_for('slideshow.stop') }}", { id: $( event.target ).data().id },
+    $.post("{{ url_for('slides.stop') }}", { id: $( event.target ).data().id },
       function () {
         $(event.target).parents("div.row").remove()
 

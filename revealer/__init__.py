@@ -28,10 +28,10 @@ bootstrap = Bootstrap(app)
 moment = Moment(app)
 
 from auth import auth
-from slideshow import slideshow
+from slides import slides
 
 app.register_blueprint(auth)
-app.register_blueprint(slideshow)
+app.register_blueprint(slides)
 
 from . import views
 from . import websockets

@@ -16,8 +16,8 @@
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-left">
-        {% set index_url = url_for('slideshow.index') %}
-        {% set upload_url = url_for('slideshow.upload') %}
+        {% set index_url = url_for('slides.index') %}
+        {% set upload_url = url_for('slides.upload') %}
         <li{% if request.path == index_url %} class="active"{% endif %}>
           <a href="{{ index_url }}" title="View slideshows"><span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span> Slideshows</a>
         </li>

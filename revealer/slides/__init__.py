@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-slideshow = Blueprint('slideshow', __name__)
+slides = Blueprint('slides', __name__)
 
 from . import views

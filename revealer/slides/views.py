@@ -2,19 +2,19 @@ from flask import render_template, redirect, url_for, flash, abort, request,\
     make_response
 from flask.ext.login import current_user, login_required
 from werkzeug.security import gen_salt
-from . import slideshow
+from . import slides
 from .forms import SlideshowForm
 from .. import slideshows, db
 from ..models import Slideshow, Presentation
 
 
-@slideshow.route('/slideshows')
+@slides.route('/slideshows')
 def index():
-    return render_template('slideshow/index.html',
+    return render_template('slides/index.html',
                            slideshows=Slideshow.query.all())
 
 
-@slideshow.route('/upload/', methods=['GET', 'POST'])
+@slides.route('/upload/', methods=['GET', 'POST'])
 @login_required
 def upload():
     form = SlideshowForm()
@@ -27,11 +27,11 @@ def upload():
         slideshows.save(form.slides.data, name=str(record.id))
 
         flash("Slideshow saved.", category='success')
-        return redirect(url_for('slideshow.view', id=record.id))
-    return render_template('slideshow/upload.html', form=form)
+        return redirect(url_for('slides.view', id=record.id))
+    return render_template('slides/upload.html', form=form)
 
 
-@slideshow.route('/slide/<int:id>/master/')
+@slides.route('/slide/<int:id>/master/')
 @login_required
 def present(id):
     record = Slideshow.query.filter_by(user=current_user).first()
@@ -48,7 +48,7 @@ def present(id):
     return abort(401)
 
 
-@slideshow.route('/presentation/stop', methods=('POST',))
+@slides.route('/presentation/stop', methods=('POST',))
 @login_required
 def stop():
     id = request.form.get('id', 0, type=int)
@@ -60,7 +60,7 @@ def stop():
         make_response('Not Found', 404)
 
 
-@slideshow.route('/slide/<string:hash>/client/')
+@slides.route('/slide/<string:hash>/client/')
 def listen(hash):
     record = Presentation.query.filter_by(slideshow_hash=hash).first()
     if record is not None:
@@ -71,7 +71,7 @@ def listen(hash):
     return abort(404)
 
 
-@slideshow.route('/slide/<int:id>/viewer/')
+@slides.route('/slide/<int:id>/viewer/')
 def view(id):
     record = Slideshow.query.get(id)
     if record is not None:
@@ -80,7 +80,7 @@ def view(id):
     return abort(404)
 
 
-@slideshow.route('/slideshow/remove/<int:id>')
+@slides.route('/slide/remove/<int:id>')
 @login_required
 def remove(id):
     record = Slideshow.query.get(id)
