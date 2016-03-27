@@ -81,6 +81,7 @@ class Presentation(db.Model):
     slideshow_hash = db.Column(db.String(12), unique=True, index=True)
     clients = db.Column(db.Integer)
     state = db.Column(db.PickleType())
+    created = db.Column(db.DateTime(), default=datetime.utcnow, index=True)
 
     slideshow_id = db.Column(db.Integer, db.ForeignKey('slideshow.id'))
     slideshow = db.relationship('Slideshow',
