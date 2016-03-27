@@ -1,10 +1,11 @@
 from flask import render_template, redirect, url_for, flash, abort, request,\
     make_response
 from flask.ext.login import current_user, login_required
+from flask.ext.socketio import emit
 from werkzeug.security import gen_salt
 from . import slides
 from .forms import SlideshowForm
-from .. import slideshows, db
+from .. import slideshows, db, socketio
 from ..models import Slideshow, Presentation
 
 
@@ -43,6 +44,28 @@ def present(id):
         pres = Presentation(slideshow_hash=gen_salt(12), slideshow=record)
         db.session.add(pres)
         db.session.commit()
+
+        pres_id = pres.id  # clousure presentation id
+
+        @socketio.on('connect', namespace='/%s' % pres.slideshow_hash)
+        def connect():
+            pres = Presentation.query.get(pres_id)
+            pres.connected()
+
+            # return pres.state  # newly connected client gets the current state
+
+        @socketio.on('disconnect', namespace='/%s' % pres.slideshow_hash)
+        def disconnect():
+            pres = Presentation.query.get(pres_id)
+            pres.disconnected()
+
+        @socketio.on('state', namespace='/%s' % pres.slideshow_hash)
+        def state(data):
+            # pres = Presentation.query.get(pres_id)
+            # pres.statechanged(data)  # update state for incoming clients
+
+            emit('statechanged', data, broadcast=True)
+
         return render_template('slideshows/%s' % id, user_type='master',
                                mult_id=pres.slideshow_hash)
     flash("You can't control this slideshow.", category='danger')
