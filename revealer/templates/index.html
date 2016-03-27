@@ -23,15 +23,25 @@
 <ul class="list-group">
   {% for presentation in presentations %}
   <li class="list-group-item presentation-item">
-    <!-- <div class="media-body"> -->
-      <h4 class="list-group-item-heading">{{ presentation.slideshow.title }} <a href="{{ url_for('slideshow.listen', hash=presentation.slideshow_hash) }}" title="Listen presentation"><span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span></a></h4>
-      <p class="list-group-item-text">
-        {{ presentation.slideshow.description }}
-      </p>
-      <small>
-        by {{ presentation.slideshow.user.name }}
-      </small>
-    <!-- </div> -->
+    <h4 class="list-group-item-heading">
+      <div class="row">
+        <div class="col-xs-8 col-sm-8 col-md-10">
+          <a href="{{ url_for('slides.index', expand=presentation.slideshow.id) }}">{{ presentation.slideshow.title }}</a>
+        </div>
+        <div class="col-xs-3 col-sm-2 col-md-1">
+          <a href="{{ url_for('slides.listen', hash=presentation.slideshow_hash) }}" title="Listen presentation" class="btn btn-default btn-xs">
+            <span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span> Listen
+          </a>
+        </div>
+      </div>
+    </h4>
+    <p class="list-group-item-text">
+      {{ presentation.slideshow.description }}
+    </p>
+    <br>
+    <small>
+      by {{ presentation.slideshow.user.name }}.
+    </small>
   </li>
   {% endfor %}
 </ul>
