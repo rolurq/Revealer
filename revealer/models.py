@@ -79,6 +79,7 @@ def delete_slideshow(mapper, connection, target):
 class Presentation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     slideshow_hash = db.Column(db.String(12), unique=True, index=True)
+    clients = db.Column(db.Integer)
 
     slideshow_id = db.Column(db.Integer, db.ForeignKey('slideshow.id'))
     slideshow = db.relationship('Slideshow',
@@ -88,6 +89,10 @@ class Presentation(db.Model):
     def __init__(self, slideshow, slideshow_hash):
         self.slideshow = slideshow
         self.slideshow_hash = slideshow_hash
+
+    def connected(self):
+        self.clients += 1
+        db.session.add(self)
 
     def delete(self):
         db.session.delete(self)
