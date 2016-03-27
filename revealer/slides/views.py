@@ -8,9 +8,10 @@ from .. import slideshows, db
 from ..models import Slideshow, Presentation
 
 
-@slides.route('/slideshows')
-def index():
-    return render_template('slides/index.html',
+@slides.route('/slideshows', defaults={'expand': 0})
+@slides.route('/slideshows/<int:expand>')
+def index(expand):
+    return render_template('slides/index.html', expand=expand,
                            slideshows=Slideshow.query.all())
 
 
