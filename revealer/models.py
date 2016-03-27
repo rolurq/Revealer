@@ -33,7 +33,7 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return self.username
 
 
 class Slideshow(db.Model):
@@ -53,7 +53,7 @@ class Slideshow(db.Model):
         self.description = description
 
     def __repr__(self):
-        return '<Slideshow %r>' % self.title
+        return self.title
 
     def delete(self):
         rm(slideshows.path(str(self.id)))
