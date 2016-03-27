@@ -14,6 +14,18 @@ class LoginForm(Form):
     remember_me = BooleanField('Keep me logged in')
     submit = SubmitField('Log in')
 
+    def validate_username(self, field):
+        if not self.get_user():
+            raise ValidationError('Invalid username')
+
+    def validate_password(self, field):
+        user = self.get_user()
+        if user and not user.verify_password(field.data):
+            raise ValidationError('Invalid password')
+
+    def get_user(self):
+        return User.query.filter_by(username=self.username.data).first()
+
 
 class RegistrationForm(Form):
     name = StringField('Name', validators=(Length(0, 64), Optional(),
