@@ -92,7 +92,13 @@ class Presentation(db.Model):
         self.slideshow_hash = slideshow_hash
 
     def connected(self):
+        if not self.clients:
+            self.clients = 0
         self.clients += 1
+        db.session.add(self)
+
+    def disconnected(self):
+        self.clients -= 1
         db.session.add(self)
 
     def statechanged(self, state):
