@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "bootstrap/pagination.html" as paginate %}
 
 {% block page_content %}
 {% if slideshows %}
@@ -59,6 +60,7 @@
   </div>
   {%- endfor %}
 </div>
+{{ paginate.render_pagination(pagination, 'slides.index', size='sm', next=('&rarr;')|safe, prev=('&larr;')|safe) }}
 {% else %}
 <div class="text-center page-header">
   <h3><small>No slideshows found.</small></h3>

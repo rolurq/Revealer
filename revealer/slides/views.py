@@ -9,11 +9,15 @@ from .. import slideshows, db, socketio
 from ..models import Slideshow, Presentation
 
 
-@slides.route('/slideshows', defaults={'expand': 0})
-@slides.route('/slideshows/<int:expand>')
+@slides.route('/slideshows', defaults={'expand': 0}, methods=('GET', 'POST'))
+@slides.route('/slideshows/<int:expand>', methods=('GET', 'POST'))
 def index(expand):
+    page = request.args.get('page', 1, type=int)
+    pagination = Slideshow.query.order_by(Slideshow.created.desc())\
+        .paginate(page, per_page=10, error_out=False)
+
     return render_template('slides/index.html', expand=expand,
-                           slideshows=Slideshow.query.all())
+                           slideshows=pagination.items, pagination=pagination)
 
 
 @slides.route('/upload/', methods=['GET', 'POST'])
