@@ -70,9 +70,8 @@ def present(id):
 
             emit('statechanged', data, broadcast=True)
 
-        return render_template('slideshows/%s' % id, user_type='master',
-                               mult_id=pres.slideshow_hash)
-    flash("You can't control this slideshow.", category='danger')
+        return redirect(url_for('slides.control', hash=pres.slideshow_hash))
+    flash("You can't present this slideshow.", category='danger')
     return abort(401)
 
 
@@ -86,6 +85,17 @@ def stop():
         return make_response('OK', 200)
     return make_response('Unauthorized', 401) if record else\
         make_response('Not Found', 404)
+
+
+@slides.route('/slide/<string:hash>/master/')
+@login_required
+def control(hash):
+    record = Presentation.query.filter_by(slideshow_hash=hash).first()
+    if record and record.slideshow.user == current_user:
+        return render_template('slideshows/%s' % record.slideshow.id,
+                               user_type='master',
+                               mult_id=record.slideshow_hash)
+    return abort(404 if not record else 401)
 
 
 @slides.route('/slide/<string:hash>/client/')
@@ -117,4 +127,4 @@ def remove(id):
 
         flash("Removed slideshow", category="warning")
         return redirect(url_for('slideshow.index'))
-    return abort(404) if not record else abort(401)
+    return abort(404 if not record else 401)
