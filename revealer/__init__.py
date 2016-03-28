@@ -5,6 +5,7 @@ from flask.ext.login import LoginManager
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.moment import Moment
+from flask.ext.admin import Admin
 
 app = Flask(__name__, static_url_path='/static')
 app.config.from_pyfile('config.py')
@@ -33,5 +34,11 @@ from slides import slides
 app.register_blueprint(auth)
 app.register_blueprint(slides)
 
-from . import views
+from admin.models import UserAdmin, SlideshowAdmin
+from .models import User, Slideshow
 
+admin = Admin(app, template_mode='bootstrap3')
+admin.add_view(UserAdmin(User, db.session))
+admin.add_view(SlideshowAdmin(Slideshow, db.session))
+
+from . import views
