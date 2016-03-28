@@ -34,4 +34,4 @@ app.register_blueprint(auth)
 app.register_blueprint(slides)
 
 from . import views
-from . import websockets
+
