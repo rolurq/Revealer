@@ -1,5 +1,7 @@
-import eventlet
-eventlet.monkey_patch()
+from gevent import monkey
+monkey.patch_all()
+from geventwebsocket.server import WebSocketServer
+
 
 from presentation import app, socketio
 from flask.ext.script import Manager, Shell
@@ -18,6 +20,8 @@ manager.add_command("shell", Shell(make_context=make_shell_context))
 
 @manager.command
 def runserver():
-    socketio.run(app, host='127.0.0.1', port=5001)
+    http_server = WebSocketServer(('127.0.0.1', 5001), app)
+    http_server.serve_forever()
+
 if __name__ == '__main__':
     manager.run()
