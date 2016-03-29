@@ -32,8 +32,8 @@
           <a href="{{ url_for('slides.index', expand=presentation.slideshow.id) }}">{{ slideshow.title }}</a>
         </div>
         <div class="row presentation-info">
-          <a href="{{ url_for('slides.listen', hash=presentation.slideshow_hash) }}" title="Listen presentation" class="btn btn-default btn-xs">
-            {{ utils.icon('blackboard') }} Listen
+          <a href="{{ url_for('slides.listen', hash=presentation.slideshow_hash) }}" title="Listen presentation" class="btn btn-default btn-sm">
+            {{ utils.icon('blackboard') }} <span>Listen</span>
           </a>
           <small>{{ utils.icon('eye-open') }} {{ presentation.clients }}</small>
         </div>

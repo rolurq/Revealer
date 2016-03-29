@@ -17,10 +17,16 @@
         </div>
         <div class="row slideshow-buttons">
           {% if current_user == slideshow.user -%}
-          <a type="button" class="btn btn-danger btn-sm" href="{{ url_for('slides.remove', id=slideshow.id) }}">{{ utils.icon('trash') }} Delete</a>
-          <a type="button" class="btn btn-success btn-sm" href="{{ url_for('slides.present', id=slideshow.id) }}">{{ utils.icon('play') }} Present</a>
+          <a type="button" class="btn btn-danger btn-sm" href="{{ url_for('slides.remove', id=slideshow.id) }}" title="Delete">
+            {{ utils.icon('trash') }} <span>Delete</span>
+          </a>
+          <a type="button" class="btn btn-success btn-sm" href="{{ url_for('slides.present', id=slideshow.id) }}" title="Present">
+            {{ utils.icon('play') }} <span>Present</span>
+          </a>
           {%- endif %}
-          <a type="button" class="btn btn-info btn-sm" href="{{ url_for('slides.view', id=slideshow.id) }}">{{ utils.icon('eye-open') }} View</a>
+          <a type="button" class="btn btn-info btn-sm" href="{{ url_for('slides.view', id=slideshow.id) }}" title="View">
+            {{ utils.icon('eye-open') }} <span>View</span>
+          </a>
         </div>
       </div>
     </div>
