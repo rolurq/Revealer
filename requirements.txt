@@ -1,6 +1,7 @@
 alembic==0.8.5
 dominate==2.1.17
 Flask==0.10.1
+Flask-Admin==1.4.0
 Flask-Bootstrap==3.3.5.7
 Flask-Login==0.3.2
 Flask-Migrate==1.8.0

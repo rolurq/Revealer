@@ -40,6 +40,8 @@
               <a href="{{ url_for('auth.edit_profile') }}" title="Edit your account information">{{ utils.icon('pencil') }} Edit profile</a>
             </li>
             <li role="separator" class="divider"></li>
+            <li><a href="{{ url_for('admin.index') }}" title="Admin headquarters">{{ utils.icon('cog') }} Administrator</a></li>
+            <li role="separator" class="divider"></li>
             <li><a href="{{ url_for('auth.logout') }}" title="Sign out from the site">Sign out</a></li>
           </ul>
         </li>
