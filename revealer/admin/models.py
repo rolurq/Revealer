@@ -10,11 +10,17 @@ class RevealerModelView(sqla.ModelView):
 
 class UserAdmin(RevealerModelView):
     column_exclude_list = ('password_hash', )
+    column_searchable_list = ('name', 'username', 'email')
+    column_editable_list = ('name', 'email')
+
     form_excluded_columns = column_exclude_list
 
 
 class SlideshowAdmin(RevealerModelView):
     can_create = False
     column_exclude_list = ('presentations', 'created', 'last_presented')
-    
+    column_searchable_list = ('title',)
+    column_editable_list = ('title',)
+    column_filters = ('user', 'title')
+
     form_excluded_columns = column_exclude_list
