@@ -35,6 +35,9 @@ class User(UserMixin, db.Model):
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def is_admin(self):
+        return self.id == 1
+
     def __repr__(self):
         return self.username
 

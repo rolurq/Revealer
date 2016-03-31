@@ -1,0 +1,10 @@
+{% extends 'admin/master.html' %}
+
+{% block admin_content %}
+<div class="panel panel-default">
+  <div class="panel-heading">{{ admin_view.name }}</div>
+  <div class="panel-body">
+    {% block model_content %}{% endblock %}
+  </div>
+</div>
+{% endblock %}
