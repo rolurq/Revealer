@@ -5,7 +5,7 @@ from flask.ext.login import current_user
 class RevealerModelView(sqla.ModelView):
 
     def is_accessible(self):
-        return current_user.is_authenticated and current_user.id == 1
+        return current_user.is_authenticated and current_user.is_admin()
 
 
 class UserAdmin(RevealerModelView):
