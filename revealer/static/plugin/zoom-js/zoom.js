@@ -66,6 +66,7 @@ var zoom = (function(){
 	// Zoom out if the user hits escape
 	document.addEventListener( 'keyup', function( event ) {
 		if( level !== 1 && event.keyCode === 27 ) {
+			event.preventDefault();
 			zoom.out();
 		}
 	} );
@@ -75,6 +76,8 @@ var zoom = (function(){
 		if( level !== 1 ) {
 			mouseX = event.clientX;
 			mouseY = event.clientY;
+
+			pan();
 		}
 	} );
 
@@ -162,7 +165,7 @@ var zoom = (function(){
 	 * of the window.
 	 */
 	function pan() {
-		var range = 0.12,
+		var range = 0.25,
 			rangeX = window.innerWidth * range,
 			rangeY = window.innerHeight * range,
 			scrollOffset = getScrollOffset();
