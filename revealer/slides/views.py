@@ -100,13 +100,10 @@ def control(hash):
 
 @slides.route('/slide/<string:hash>/client/')
 def listen(hash):
-    record = Presentation.query.filter_by(slideshow_hash=hash).first()
-    if record is not None:
-        return render_template('slideshows/%s' % record.slideshow.id,
-                               user_type='client',
-                               mult_id=record.slideshow_hash)
-    flash("Invalid slideshow.", category='danger')
-    return abort(404)
+    record = Presentation.query.filter_by(slideshow_hash=hash).first_or_404()
+    return render_template('slideshows/%s' % record.slideshow.id,
+                           user_type='client',
+                           mult_id=record.slideshow_hash)
 
 
 @slides.route('/slide/<int:id>/viewer/')
