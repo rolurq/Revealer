@@ -1,5 +1,5 @@
 from flask import render_template, redirect, url_for, flash, abort, request,\
-    make_response
+    make_response, send_from_directory
 from flask.ext.login import current_user, login_required
 from flask.ext.socketio import emit
 from werkzeug.security import gen_salt
@@ -116,6 +116,22 @@ def view(id):
         return render_template('slideshows/%s' % id, user_type='viewer')
     flash("Invalid slideshow.", category='danger')
     return abort(404)
+
+
+@slides.route('/slide/<string:hash>/master/files/<string:archive>',
+              defaults={'id': 0})
+@slides.route('/slide/<string:hash>/client/files/<string:archive>',
+              defaults={'id': 0})
+@slides.route('/slide/<int:id>/viewer/files/<string:archive>',
+              defaults={'hash': None})
+def files(archive, hash, id):
+    print(hash)
+    if not id:
+        record = Presentation.query.filter_by(slideshow_hash=hash)\
+            .first_or_404()
+        id = record.slideshow.id
+
+    return send_from_directory(slideshows.path('%d_files' % id), archive)
 
 
 @slides.route('/slide/remove/<int:id>')
