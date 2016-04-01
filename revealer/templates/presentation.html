@@ -364,9 +364,13 @@ console.log( '"customevent" has fired' );
 {{ super()|safe }}
 <link rel="stylesheet" href="/static/css/reveal.css">
 <link rel="stylesheet" href="/static/css/revealer.css">
-<link rel="stylesheet" href="/static/css/theme/{% block theme %}black{% endblock %}.css" id="theme">
+{% block theme %}
+<link rel="stylesheet" href="/static/css/theme/{% block theme_name %}black{% endblock %}.css" id="theme">
+{% endblock %}
 <!-- Code syntax highlighting -->
-<link rel="stylesheet" href="/static/lib/css/hljs/{% block highlight %}zenburn{% endblock %}.css">
+{% block highlight %}
+<link rel="stylesheet" href="/static/lib/css/hljs/{% block highlight_name %}zenburn{% endblock %}.css">
+{% endblock %}
 <style type="text/css">
   {% block style %}{% endblock %}
 </style>
