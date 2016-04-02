@@ -40,8 +40,8 @@ def upload():
 @slides.route('/slide/<int:id>/master/')
 @login_required
 def present(id):
-    record = Slideshow.query.filter_by(user=current_user).first()
-    if record is not None:
+    record = Slideshow.query.get(id)
+    if record is not None and record.user == current_user:
         record.present()  # update last_presented value
 
         # create the presentation instance and the corresponding key
@@ -122,7 +122,6 @@ def view(id):
 @slides.route('/slide/<int:id>/viewer/files/<string:archive>',
               defaults={'hash': None})
 def files(archive, hash, id):
-    print(hash)
     if not id:
         record = Presentation.query.filter_by(slideshow_hash=hash)\
             .first_or_404()
