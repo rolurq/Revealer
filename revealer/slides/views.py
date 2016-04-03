@@ -1,5 +1,5 @@
 from flask import render_template, redirect, url_for, flash, abort, request,\
-    make_response
+    make_response, send_from_directory
 from flask.ext.login import current_user, login_required
 from flask.ext.socketio import emit
 from werkzeug.security import gen_salt
@@ -40,8 +40,8 @@ def upload():
 @slides.route('/slide/<int:id>/master/')
 @login_required
 def present(id):
-    record = Slideshow.query.filter_by(user=current_user).first()
-    if record is not None:
+    record = Slideshow.query.get(id)
+    if record is not None and record.user == current_user:
         record.present()  # update last_presented value
 
         # create the presentation instance and the corresponding key
@@ -100,13 +100,10 @@ def control(hash):
 
 @slides.route('/slide/<string:hash>/client/')
 def listen(hash):
-    record = Presentation.query.filter_by(slideshow_hash=hash).first()
-    if record is not None:
-        return render_template('slideshows/%s' % record.slideshow.id,
-                               user_type='client',
-                               mult_id=record.slideshow_hash)
-    flash("Invalid slideshow.", category='danger')
-    return abort(404)
+    record = Presentation.query.filter_by(slideshow_hash=hash).first_or_404()
+    return render_template('slideshows/%s' % record.slideshow.id,
+                           user_type='client',
+                           mult_id=record.slideshow_hash)
 
 
 @slides.route('/slide/<int:id>/viewer/')
@@ -116,6 +113,21 @@ def view(id):
         return render_template('slideshows/%s' % id, user_type='viewer')
     flash("Invalid slideshow.", category='danger')
     return abort(404)
+
+
+@slides.route('/slide/<string:hash>/master/files/<string:archive>',
+              defaults={'id': 0})
+@slides.route('/slide/<string:hash>/client/files/<string:archive>',
+              defaults={'id': 0})
+@slides.route('/slide/<int:id>/viewer/files/<string:archive>',
+              defaults={'hash': None})
+def files(archive, hash, id):
+    if not id:
+        record = Presentation.query.filter_by(slideshow_hash=hash)\
+            .first_or_404()
+        id = record.slideshow.id
+
+    return send_from_directory(slideshows.path('%d_files' % id), archive)
 
 
 @slides.route('/slide/remove/<int:id>')

@@ -364,9 +364,13 @@ console.log( '"customevent" has fired' );
 {{ super()|safe }}
 <link rel="stylesheet" href="/static/css/reveal.css">
 <link rel="stylesheet" href="/static/css/revealer.css">
-<link rel="stylesheet" href="/static/css/theme/{% block theme %}black{% endblock %}.css" id="theme">
+{% block theme %}
+<link rel="stylesheet" href="/static/css/theme/{% block theme_name %}black{% endblock %}.css" id="theme">
+{% endblock %}
 <!-- Code syntax highlighting -->
-<link rel="stylesheet" href="/static/lib/css/hljs/{% block highlight %}zenburn{% endblock %}.css">
+{% block highlight %}
+<link rel="stylesheet" href="/static/lib/css/hljs/{% block highlight_name %}zenburn{% endblock %}.css">
+{% endblock %}
 <style type="text/css">
   {% block style %}{% endblock %}
 </style>
@@ -385,34 +389,36 @@ console.log( '"customevent" has fired' );
   // Full list of configuration options available at:
   // https://github.com/hakimel/reveal.js#configuration
   Reveal.initialize({
-    {% if user_type == 'master' %}
+    {% if user_type == 'master' -%}
       controls: true,
       slideNumber: true,
       transition: 'none',
       history: true,
-    {% else %}
+      progress: true,
+    {% else -%}
       transition: '{% block transition %}slide{% endblock %}', // none/fade/slide/convex/concave/zoom
       controls: false,
-      {% if user_type == 'client' %}
+      {% if user_type == 'client' -%}
         keyboard: false,
         touch: false,
         overview: false,
         history: false,
         showNotes: false,
         mouseWheel: false,
-      {% endif %}
-    {% endif %}
-    progress: true,
+        progress: false,
+      {% endif -%}
+    {% endif -%}
     center: true,
-    {% block configuration %}
-    {% endblock %}
+    zoomKey: 'ctrl',
+    {% block configuration -%}
+    {% endblock -%}
 
-    {% if user_type in ['client', 'master'] %}
+    {% if user_type in ['client', 'master'] -%}
     multiplex: {
       id: "{{ mult_id }}",
       url: 'http://' + document.domain + ':' + location.port + '/{{ mult_id }}'
     },
-    {% endif %}
+    {% endif -%}
 
     // Optional reveal.js plugins
     dependencies: [
@@ -421,17 +427,17 @@ console.log( '"customevent" has fired' );
       { src: '/static/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
       { src: '/static/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
       { src: '/static/plugin/zoom-js/zoom.js', async: true },
-      {% if user_type == 'master' %}
+      {% if user_type == 'master' -%}
         { src: '/static/plugin/multiplex/master.js', async: true },
         { src: '/static/plugin/notes/notes.js', async: true },
-      {% else %}
-        {% if user_type == 'client' %}
+      {% else -%}
+        {% if user_type == 'client' -%}
           { src: '/static/plugin/multiplex/client.js', async: true },
-        {% endif %}
-      {% endif %}
+        {% endif -%}
+      {% endif -%}
       { src: '/static/lib/js/socket.io-1.3.7.js', async: true }
-      {% block dependencies %}
-      {% endblock %}
+      {% block dependencies -%}
+      {% endblock -%}
     ]
   });
 </script>

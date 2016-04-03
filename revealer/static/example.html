@@ -9,9 +9,9 @@
 {% block author %}{% endblock %}
 
 <!-- Reveal theme -->
-{% block theme %}{{ super() }}{% endblock %}
+{% block theme_name %}{{ super() }}{% endblock %}
 <!-- Code highlight theme -->
-{% block highlight %}{{ super() }}{% endblock %}
+{% block highlight_name %}{{ super() }}{% endblock %}
 <!-- Transition type -->
 {% block transition %}{{ super() }}{% endblock %}
 
@@ -32,23 +32,23 @@
 
 
 {% block style %}
-  <!-- Set your custom style. Bootstrap it's included by default.
-       Code inserted here will be inside a 'style' tag -->
+  /* Set your custom style. Bootstrap it's included by default.
+       Code inserted here will be inside a 'style' tag */
 {% endblock %}
 
 {% block script %}
-  <!-- Set your custom scripts.
-       Code inserted here will be inside a 'script' -->
+  /* Set your custom scripts.
+       Code inserted here will be inside a 'script' */
 {% endblock%}
 
 
 {% block configuration %}
   {{ super() }}
-  <!-- Set Reveal options -->
+  // Set Reveal options
 {% endblock %}
 
 {% block dependencies %}
   {{ super() }}
-  <!-- Add Reveal dependencies -->
+  // Add Reveal dependencies
 {% endblock %}
 

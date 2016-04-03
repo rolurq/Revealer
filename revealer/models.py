@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from sqlalchemy.event import listens_for
 from os import remove as rm
-from . import db, login_manager, slideshows
+from . import db, login_manager, slideshows, socketio
 
 
 @login_manager.user_loader
@@ -112,3 +112,11 @@ class Presentation(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+
+@listens_for(Presentation, 'after_delete')
+def delete_presentation(mapper, connection, target):
+    try:
+        del socketio.server.handlers['/%s' % target.slideshow_hash]
+    except KeyError:
+        pass
