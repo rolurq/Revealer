@@ -17,18 +17,21 @@ Revealer uses `MySQL` as database handler. Set the values of the `MYSQL_*` varia
 Also, the database `DATABASE_NAME` must exist before the application could be executed.
 
 When the values are correct, run:
+
 ```terminal
 $ python manage.py upgrade
 ```
 
 ### Secret Key
 You must define a secret key. You can configure one doing so:
+
 ```python
 SECRET_KEY='s0m353cr3tK3y'
 ```
 
 ## Usage
 Now you can run:
+
 ```terminal
 $ python manage.py runserver
 ```
