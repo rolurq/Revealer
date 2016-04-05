@@ -10,7 +10,7 @@ var RevealMath = window.RevealMath || (function(){
 	options.mathjax = options.mathjax || 'https://cdn.mathjax.org/mathjax/latest/MathJax.js';
 	options.config = options.config || 'TeX-AMS_HTML-full';
 
-	loadScript( options.mathjax + '?config=' + options.config, function() {
+	loadScript( options.mathjax + options.config, function() {
 
 		MathJax.Hub.Config({
 			messageStyle: 'none',
@@ -33,6 +33,8 @@ var RevealMath = window.RevealMath || (function(){
 
 		} );
 
+		MathJax.Hub.Startup.Jax();
+		MathJax.Hub.Startup.Extensions();
 	} );
 
 	function loadScript( url, callback ) {
