@@ -433,6 +433,7 @@ console.log( '"customevent" has fired' );
       { src: '/static/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
       { src: '/static/plugin/zoom-js/zoom.js', async: true },
       { src: '/static/plugin/math/math.js', async: false },
+      { src: '/static/lib/js/socket.io-1.3.7.js', async: true },
       {% if user_type == 'master' -%}
         { src: '/static/plugin/multiplex/master.js', async: true },
         { src: '/static/plugin/notes/notes.js', async: true },
@@ -441,7 +442,6 @@ console.log( '"customevent" has fired' );
           { src: '/static/plugin/multiplex/client.js', async: true },
         {% endif -%}
       {% endif -%}
-      { src: '/static/lib/js/socket.io-1.3.7.js', async: true }
       {% block dependencies -%}
       {% endblock -%}
     ]
