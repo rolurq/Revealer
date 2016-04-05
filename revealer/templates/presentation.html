@@ -380,7 +380,7 @@ console.log( '"customevent" has fired' );
 {{ super()|safe }}
 <script src="/static/lib/js/head.min.js"></script>
 <script src="/static/js/reveal.js"></script>
-<script src="/static/lib/js/socket.io-1.3.7.js"></script>
+<script type="text/javascript" src="/static/lib/js/mathjax/MathJax.js"></script>
 
 <script>
   $(window).load(function () {
@@ -427,6 +427,7 @@ console.log( '"customevent" has fired' );
       { src: '/static/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
       { src: '/static/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
       { src: '/static/plugin/zoom-js/zoom.js', async: true },
+      { src: '/static/plugin/math/math.js', async: false },
       {% if user_type == 'master' -%}
         { src: '/static/plugin/multiplex/master.js', async: true },
         { src: '/static/plugin/notes/notes.js', async: true },
