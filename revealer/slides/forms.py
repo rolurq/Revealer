@@ -4,7 +4,7 @@ from flask.ext.login import current_user
 from wtforms.fields import StringField, SubmitField, TextAreaField
 from wtforms.validators import Required
 from wtforms import ValidationError
-from .. import slideshows
+from .. import slideshows, resources
 from ..models import Slideshow
 
 
@@ -15,6 +15,12 @@ class SlideshowForm(Form):
                                              FileAllowed(slideshows,
                                                          'HTML files only!')],
                        description="You should upload a HTML file")
+    resources = FileField('Resources', validators=(FileAllowed(resources,
+                                                   'Only HTML usable resources'
+                                                   ' allowed'),),
+                          description='Content required by your slideshow:'
+                                      ' images, styles, etc.',
+                          render_kw={'multiple': 'true'})
     submit = SubmitField('Upload')
 
     def validate_title(self, field):
