@@ -138,5 +138,5 @@ def remove(id):
         record.delete()
 
         flash("Removed slideshow", category="warning")
-        return redirect(url_for('slideshow.index'))
+        return redirect(url_for('slides.index'))
     return abort(404 if not record else 401)
