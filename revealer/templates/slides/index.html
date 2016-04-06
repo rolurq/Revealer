@@ -42,8 +42,8 @@
           <dd id="presentation-list">
             {% for presentation in slideshow.presentations %}
             <div class="row" role="presentations">
-              <div class="col-xs-1 col-md-1">{{ presentation.slideshow_hash }}</div>
-              <div class="col-xs-1 col-md-1 col-xs-offset-2 col-md-offset-1">
+              <div class="col-xs-1">{{ presentation.slideshow_hash }}</div>
+              <div class="col-xs-3 col-xs-offset-1">
                 <button type="button" role="stop" data-id="{{ presentation.id }}" class="btn btn-default btn-xs">{{ utils.icon('stop') }} Stop</button>
               </div>
             </div>
