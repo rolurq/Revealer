@@ -5,7 +5,7 @@ from flask.ext.socketio import emit
 from werkzeug.security import gen_salt
 from . import slides
 from .forms import SlideshowForm
-from .. import slideshows, db, socketio
+from .. import slideshows, resources, db, socketio
 from ..models import Slideshow, Presentation
 
 
@@ -31,6 +31,10 @@ def upload():
         db.session.commit()
 
         slideshows.save(form.slides.data, name=str(record.id))
+
+        resources_files = request.files.getlist("resources")
+        for resource in resources_files:
+            resources.save(resource, folder='%d_files' % record.id)
 
         flash("Slideshow saved.", category='success')
         return redirect(url_for('slides.view', id=record.id))
