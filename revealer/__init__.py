@@ -31,9 +31,11 @@ moment = Moment(app)
 
 from auth import auth
 from slides import slides
+from presentation import presentation
 
 app.register_blueprint(auth)
 app.register_blueprint(slides)
+app.register_blueprint(presentation)
 
 from admin.models import UserAdmin, SlideshowAdmin
 from .models import User, Slideshow
