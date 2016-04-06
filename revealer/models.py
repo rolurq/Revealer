@@ -3,6 +3,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from sqlalchemy.event import listens_for
 from os import remove as rm
+from os.path import join, exists, dirname
+from shutil import rmtree
 from . import db, login_manager, slideshows, socketio
 
 
@@ -73,7 +75,13 @@ class Slideshow(db.Model):
 @listens_for(Slideshow, 'after_delete')
 def delete_slideshow(mapper, connection, target):
     try:
-        rm(slideshows.path(str(target.id)))
+        slides_file = slideshows.path(str(target.id))
+        # remove resource files
+        resource_dir = join(dirname(slides_file), '%d_files' % target.id)
+        if exists(resource_dir):
+            rmtree(resource_dir)
+
+        rm(slides_file)
     except OSError:
         pass
 
