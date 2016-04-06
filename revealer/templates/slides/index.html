@@ -20,7 +20,7 @@
           <a type="button" class="btn btn-danger btn-sm" href="{{ url_for('slides.remove', id=slideshow.id) }}" title="Delete">
             {{ utils.icon('trash') }} <span>Delete</span>
           </a>
-          <a type="button" class="btn btn-success btn-sm" href="{{ url_for('slides.present', id=slideshow.id) }}" title="Present">
+          <a type="button" class="btn btn-success btn-sm" href="{{ url_for('presentation.present', id=slideshow.id) }}" title="Present">
             {{ utils.icon('play') }} <span>Present</span>
           </a>
           {%- endif %}
@@ -42,9 +42,10 @@
           <dd id="presentation-list">
             {% for presentation in slideshow.presentations %}
             <div class="row" role="presentations">
-              <div class="col-xs-1 col-md-1">{{ presentation.slideshow_hash }}</div>
-              <div class="col-xs-1 col-md-1 col-xs-offset-2 col-md-offset-1">
+              <div class="col-xs-1">{{ presentation.slideshow_hash }}</div>
+              <div class="col-xs-3 col-xs-offset-1">
                 <button type="button" role="stop" data-id="{{ presentation.id }}" class="btn btn-default btn-xs">{{ utils.icon('stop') }} Stop</button>
+                <a type="button" class="btn btn-default btn-xs" href="{{ url_for('presentation.control', hash=presentation.slideshow_hash) }}">{{ utils.icon('play') }} Continue</a>
               </div>
             </div>
             {% else %}
@@ -83,7 +84,7 @@
   // add event to all buttons with role="button" between its attr
   $(':button[role="stop"]').click(function(event) {
 
-    $.post("{{ url_for('slides.stop') }}", { id: $( event.target ).data().id },
+    $.post("{{ url_for('presentation.stop') }}", { id: $( event.target ).data().id },
       function () {
         list = $(event.target).parents("#presentation-list")
         $(event.target).parents("div.row").remove()

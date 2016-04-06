@@ -53,3 +53,11 @@ Inside this block you can put your slides to be shown. Please see the [revealjs 
 After this, you can upload the resulting file to the server. Going to `slideshows` link will list all slideshows on the server, from there you can present yours.
 
 Anytime you start presenting a slideshow, an entry on the index page its added, from there, the clients can connect to your presentation.
+
+### Adding Resources
+Custom styles or images can be added for the slideshow to use. Just upload them together with the slideshow template. To refer any of them use the `/files/<name>` uri, where `name` is the name of the file you want to use
+
+```html
+<!-- Use an uploaded image -->
+<img src="/files/picture.png" />
+```
