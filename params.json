@@ -1,0 +1,6 @@
+{
+  "name": "Revealer",
+  "tagline": "Flask app to serve and control Reveal.js slideshows",
+  "body": "### Present to your audience\r\nRevealer allows to serve multiple [Reveal.js](https://github.com/hakimel/reveal.js/) presentations using an http server to navigate and select currently active slideshows. Users can comment and review on active or inactive presentations, active presentations reviews can be read by the presenter.\r\n\r\n### Add resources to your slideshows\r\nPresentations can use any web resource, either by putting links in their code or by linking the files uploaded along with the presentation.\r\n\r\n### Editing presentations\r\nRight now, editing already uploaded presentations is not supported, nevertheless, including text and revealer editor is currently in progress.\r\n\r\n### Authors and Contributors\r\nRevealer is being developed by Rolando Urquiza (@rolurquiza). **Contribution from anyone is encouraged!!**.\r\n\r\n### Support or Contact\r\nHaving trouble with Revealer? There's not documentation just yet, but you can mail me with your troubles rolurquiza@gmail.com \r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
